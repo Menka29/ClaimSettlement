@@ -13,7 +13,7 @@ namespace ClaimSettlement.Api.Validators
             RuleFor(request => request.ClaimAmount)
                 .GreaterThan(0).WithMessage("Claim amount must be greater than zero.");
 
-            RuleFor(request => request.AgeYears)
+            RuleFor(request => request.PropertyAgeYears)
                 .GreaterThanOrEqualTo(0).WithMessage("Age must be a positive number.") ;
         }
     }

@@ -6,6 +6,6 @@ namespace ClaimSettlement.Application.Interfaces
 {
     public interface IPolicyAdminClient
     {
-        Task<PolicyDetails> GetPolicyDetailsAsync(string policyNumber, CancellationToken cancellationToken);
+        Task<PolicyDetails?> GetPolicyDetailsAsync(string policyNumber, CancellationToken cancellationToken);
     }
 }

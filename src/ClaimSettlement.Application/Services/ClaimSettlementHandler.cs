@@ -17,7 +17,7 @@ namespace  ClaimSettlement.Application.Services
             _decision = decision;
         }
 
-        public async Task<ClaimSettlementDecision> HandleClaimSettlement(ClaimRequest request, CancellationToken cancellationToken = default)
+        public async Task<SettlementDecision> HandleClaimSettlement(ClaimRequest request, CancellationToken cancellationToken = default)
         {
             var policy = await _policyAdminClient.GetPolicyDetailsAsync(request.PolicyNumber, cancellationToken);
 

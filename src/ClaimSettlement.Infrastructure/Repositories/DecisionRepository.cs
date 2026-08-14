@@ -5,14 +5,14 @@ namespace ClaimSettlement.Infrastructure.Repositories
 {
     public class DecisionRepository : IDecision
     {
-        private readonly List<ClaimSettlementDecision> _decisions;
+        private readonly List<SettlementDecision> _decisions;
 
         public DecisionRepository()
         {
-            _decisions = new List<ClaimSettlementDecision>();
+            _decisions = new List<SettlementDecision>();
         }
 
-        public Task SaveSettlementDecisionAsync(ClaimSettlementDecision decision, CancellationToken cancellationToken = default)
+        public Task SaveSettlementDecisionAsync(SettlementDecision decision, CancellationToken cancellationToken = default)
         {
             _decisions.Add(decision);
             return Task.CompletedTask;

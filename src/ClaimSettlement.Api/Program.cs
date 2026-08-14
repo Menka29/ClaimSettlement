@@ -3,6 +3,7 @@ using ClaimSettlement.Application.Services;
 using ClaimSettlement.Infrastructure.Clients;
 using ClaimSettlement.Infrastructure.Repositories;
 using ClaimSettlement.Api.Validators;
+using ClaimSettlement.Api.Middleware;
 using FluentValidation;
 
 
@@ -17,11 +18,16 @@ builder.Services.AddScoped<ClaimSettlementHandler>();
 builder.Services.AddSingleton<IPolicyAdminClient, PolicyAdminClientStub>();
 builder.Services.AddSingleton<IDecision, DecisionRepository>();
 builder.Services.AddValidatorsFromAssemblyContaining<ClaimRequestValidator>();
+/*builder.Services.AddHttpClient<IPolicyAdminClient, PolicyAdminClient>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["PolicyAdminApi:BaseUrl"]!); // Replace with the actual base URL of the Policy Admin API
+});*/
 
 
 var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.MapControllers();
 
 app.Run();

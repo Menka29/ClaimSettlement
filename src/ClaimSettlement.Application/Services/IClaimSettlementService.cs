@@ -4,7 +4,7 @@ namespace ClaimSettlement.Application.Services
 
     public interface IClaimSettlementService
     {
-        ClaimSettlementDecision TakeSettlementDecision(PolicyDetails policy, ClaimRequest request);
+        SettlementDecision TakeSettlementDecision(PolicyDetails policy, ClaimRequest request);
     }
 }
 

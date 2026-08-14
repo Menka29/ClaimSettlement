@@ -7,7 +7,7 @@ namespace ClaimSettlement.Api.Controllers
     using System.Threading.Tasks;
 
     [ApiController]
-    [Route("api/claimsettlement")]
+    [Route("api/claim-settlement")]
     public class ClaimSettlementController : ControllerBase
     {
         private readonly ClaimSettlementHandler _claimSettlementHandler;
@@ -20,19 +20,9 @@ namespace ClaimSettlement.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> SettleClaim(ClaimRequest request, CancellationToken cancellationToken = default)
         {
-            try
-            {
                 var decision = await _claimSettlementHandler.HandleClaimSettlement(request);
                 return Ok(decision);
-            }
-            catch (PolicyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+
         }
     }
 }

@@ -6,45 +6,44 @@ namespace ClaimSettlement.Application.Services
 
     public class ClaimSettlementService : IClaimSettlementService
     { 
-        public ClaimSettlementDecision TakeSettlementDecision(PolicyDetails policy, ClaimRequest request)
+        public SettlementDecision TakeSettlementDecision(PolicyDetails policy, ClaimRequest request)
         {
             // Implementation for taking settlement decision
-            decimal threshold = request.AgeYears > 30 ? 1000m : 3000m;
+            decimal threshold = request.PropertyAgeYears > 30 ? 1000m : 3000m;
             
             if(!policy.IsActive)
             {
-                return new ClaimSettlementDecision
-                {
-                    PolicyNumber = request.PolicyNumber,
-                    Status = "Policy Inactive",
-                    IsApproved = false
-                };
+                return new SettlementDecision
+                (
+                    request.PolicyNumber,
+                    "Policy Inactive",
+                    false
+                );
             }
 
             if(request.ClaimAmount > policy.CoverageLimit)
             {
-                return new ClaimSettlementDecision
-                {
-                    PolicyNumber = request.PolicyNumber,
-                    Status = "Coverage Limit Exceeded",
-                    IsApproved = false
-                };
+                return new SettlementDecision
+                (
+                    request.PolicyNumber,
+                    "Coverage Limit Exceeded",
+                    false
+                );
             }
             if(request.ClaimAmount > threshold)
             {
-                return new ClaimSettlementDecision
-                {
-                    PolicyNumber = request.PolicyNumber,
-                    Status = "Adjuster review Required",
-                    IsApproved = false
-                };
+                return new SettlementDecision (
+                    request.PolicyNumber,
+                    "Adjuster Review Required",
+                    false
+                );
             }
-            return new ClaimSettlementDecision
-            {
-                PolicyNumber = request.PolicyNumber,
-                Status = "Auto-Settled",
-                IsApproved = true
-            };
+            return new SettlementDecision
+            (
+                request.PolicyNumber,
+                "Auto-Settled",
+                true
+            );
         }
     }
 }
